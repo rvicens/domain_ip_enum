@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+/keywords/google_keywords.txt
+results/*
+
+# C extensions
+*.so
+
+# IDE pycharm options
+.idea/
+
+# Distribution / packaging
+.Python
+environment/*
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
