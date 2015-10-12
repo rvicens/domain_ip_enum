@@ -10,6 +10,7 @@ import re
 from ipwhois import IPWhois
 from tld import get_tld
 from tld.utils import update_tld_names
+from netaddr import IPNetwork, IPAddress
 
 
 class IpUtils():
@@ -36,6 +37,22 @@ class IpUtils():
             pass
 
         return out
+
+
+    def checkIfIPinNetworks(self,ip,networks):
+
+        if not networks:
+            return False
+
+        if not self.checkIfIP(ip):
+            return False
+
+        for net in networks:
+            if IPAddress(ip) in IPNetwork(net):
+                return True
+
+        return False
+
 
 
 class DomainUtils():
