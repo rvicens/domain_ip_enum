@@ -83,12 +83,12 @@ class GoogleSite():
                 pass
 
         ### TEMPORAL ###
-
+        '''
         fp = open("test_urls","r")
         urls = fp.readlines()
         for u in urls:
             u = u.strip()
             self.urls.append(u)
         fp.close()
-
+        '''
         return True

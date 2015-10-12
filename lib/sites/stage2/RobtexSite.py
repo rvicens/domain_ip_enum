@@ -78,8 +78,3 @@ class RobtexSite():
             self.pase_page()
 
         return True
-
-if __name__ == '__main__':
-
-    s = RobtexSite()
-    s.run()
