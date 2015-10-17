@@ -9,7 +9,7 @@ class IPDomainHarvester():
 
     def __init__(self):
 
-        self.stage1_sites = { "GOOGLE":GoogleSite() }
+        self.stage1_sites = { "GOOGLE":GoogleSite(), "BING":BingSite() }
         self.stage2_sites = { "ROBTEX": RobtexSite() }
 
         self.outfile_base_s1 = "{0}/results/stage1/".format(os.getcwd())
