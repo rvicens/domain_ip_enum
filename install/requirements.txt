@@ -5,3 +5,5 @@ google
 whois
 ipwhois
 tld
+netaddr
+py-bing-search

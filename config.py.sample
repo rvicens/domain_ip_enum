@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
+BING_API_KEY = ""

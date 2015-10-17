@@ -2,8 +2,9 @@
 __pycache__/
 *.py[cod]
 
-/keywords/google_keywords.txt
+/keywords/websearch_keywords.txt
 results/*
+config.py
 
 # C extensions
 *.so

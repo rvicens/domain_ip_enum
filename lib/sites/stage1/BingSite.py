@@ -2,13 +2,15 @@
 # -*- coding: utf8 -*-
 
 import os
-from google import search
+from py_bing_search import PyBingSearch
 from lib.TargetValidator import *
 from lib.domainUtils import *
 
-class GoogleSite():
+from config import *
 
-    def __init__(self, maxResults="3"):
+class BingSite():
+
+    def __init__(self, maxResults="50"):
         self.maxResuts = maxResults
         self.urls = []
         self.domains = []
@@ -72,23 +74,26 @@ class GoogleSite():
 
         try:
             # Get the hits for the given keywords
+            bing = PyBingSearch(BING_API_KEY)
             for keyword in self.keywords:
                 print "KEYWORD:{0}".format(keyword)
-                for url in search(keyword, stop=self.maxResuts):
+                result_list, next_uri = bing.search(keyword, limit=self.maxResuts, format='json')
+                for result in result_list:
+                    url = result.url
                     print "Found URL:{0}".format(url)
                     self.urls.append(url)
         except:
-                print "Something went wrong scraping Google."
-                print "Scraping has stopped"
+                print "Something went wrong querying Bing."
                 pass
 
-        ### TEMPORAL ###
-        '''
-        fp = open("test_urls","r")
-        urls = fp.readlines()
-        for u in urls:
-            u = u.strip()
-            self.urls.append(u)
-        fp.close()
-        '''
         return True
+
+
+if __name__ == '__main__':
+
+    a = BingSite()
+    a.run()
+    a.get_domains()
+    print a.domains
+    a.get_ips()
+    print a.hosts_and_ips
