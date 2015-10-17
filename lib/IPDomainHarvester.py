@@ -13,6 +13,7 @@ class IPDomainHarvester():
         self.stage1_sites = { "GOOGLE":GoogleSite(), "BING":BingSite() }
         self.stage2_sites = { "ROBTEX": RobtexSite() }
 
+        self.outfile_base_final = "{0}/results/".format(os.getcwd())
         self.outfile_base_s1 = "{0}/results/stage1/".format(os.getcwd())
         self.outfile_base_s2 = "{0}/results/stage2/".format(os.getcwd())
 
@@ -30,7 +31,7 @@ class IPDomainHarvester():
     def store_file(self,fname,content):
 
         with open(fname,"w+") as f:
-            for item in content:
+            for item in sorted(content):
                 f.write(item.strip()+"\n")
 
         return True
@@ -109,16 +110,50 @@ class IPDomainHarvester():
             print "Processing hosts and getting IPs..."
             ips_file = "{0}{1}_hosts_ip.txt".format(self.outfile_base_s2,site.lower())
             print "Storing IPs at: {0}\n".format(ips_file)
-            print s.hosts_and_ips
+            #print s.hosts_and_ips
             self.store_file(ips_file,s.hosts_and_ips)
 
         return True
 
+
+    def store_unique_data(self):
+
+        domains = []
+        networks = []
+        data_type = ["domain","network"]
+        results = {"domain":domains, "network": networks }
+        dirs_to_check = [self.outfile_base_s1 , self.outfile_base_s2 ]
+
+        for d_type in data_type:
+            for d in dirs_to_check:
+                if os.path.isdir(d):
+                    for f in os.listdir(d):
+                        if d_type in f:
+                            fp = open("{0}{1}".format(d,f),"r")
+                            lines = fp.readlines()
+                            fp.close()
+                            for line in lines:
+                                line = line.strip()
+                                if line not in results[d_type]:
+                                    results[d_type].append(line)
+
+        print "*************************************************"
+        print "Saving Results"
+        print "*************************************************"
+        domains_file = "{0}domains.txt".format(self.outfile_base_final)
+        print "Storing Domains at: {0}".format(domains_file)
+        self.store_file(domains_file,results["domain"])
+        networks_file = "{0}networks.txt".format(self.outfile_base_final)
+        print "Storing IPs at: {0}\n".format(networks_file)
+        self.store_file(networks_file,results["network"])
+
+        return True
 
 
     def harvest(self):
 
         self.exec_stage1_sites()
         self.exec_stage2_sites()
+        self.store_unique_data()
 
         return True

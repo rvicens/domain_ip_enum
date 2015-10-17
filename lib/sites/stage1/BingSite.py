@@ -87,13 +87,3 @@ class BingSite():
                 pass
 
         return True
-
-
-if __name__ == '__main__':
-
-    a = BingSite()
-    a.run()
-    a.get_domains()
-    print a.domains
-    a.get_ips()
-    print a.hosts_and_ips

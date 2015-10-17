@@ -17,11 +17,16 @@ class RobtexSite():
 
         self.check_networks = []
         self.input_files_dir = "{0}/results/stage1/".format(os.getcwd())
+
+
+    def get_nets_to_check(self):
+
         if os.path.isdir(self.input_files_dir):
             for f in os.listdir(self.input_files_dir):
                 if "networks" in f:
                     fp = open("{0}{1}".format(self.input_files_dir,f),"r")
                     lines = fp.readlines()
+                    fp.close()
                     for line in lines:
                         line = line.strip()
                         if line not in self.check_networks:
@@ -70,6 +75,7 @@ class RobtexSite():
 
     def run(self):
 
+        self.get_nets_to_check()
         for net in self.check_networks:
             net = net.strip()
             ip_net = net.replace("/","-")
