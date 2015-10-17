@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 from lib.sites.stage1.GoogleSite import *
+from lib.sites.stage1.BingSite import *
 from lib.sites.stage2.RobtexSite import *
 from lib.TargetValidator import *
 
